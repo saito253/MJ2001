@@ -1,0 +1,56 @@
+sendln "sgi"
+waitln "sgi"
+
+sendln "sgb, 24, 0xabcd, 100, 20"
+waitln "sgb"
+
+sendln "erd, 0x20, 8"
+mpause 1000
+
+sendln "erd, 0xa0, 1"
+mpause 1000
+
+sendln "rfr 8 0x71 0x02"
+mpause 1000
+
+yesnobox '•ÏX‚µ‚Ü‚·‚©H' 'Tera Term'
+if result then
+	sendln "ewp 0"
+    mpause 1000
+	sendln "ewr, 0x20, 4"
+    mpause 1000
+	sendln "ewr, 0xa0, 5"
+    mpause 1000
+	sendln "ewp 1"
+    mpause 1000
+endif
+
+sendln "sgi"
+mpause 1000
+sendln "sgb, 24, 0xabcd, 100, 20"
+mpause 1000
+sendln "erd, 0x20, 8"
+mpause 1000
+sendln "erd, 0xa0, 1"
+mpause 1000
+sendln "rfr 8 0x71 0x02"
+mpause 1000
+
+sendln "erd, 0x20, 16"
+mpause 1000
+sendln "erd, 0x30, 16"
+mpause 1000
+sendln "erd, 0x40, 16"
+mpause 1000
+sendln "erd, 0x50, 16"
+mpause 1000
+sendln "erd, 0x60, 16"
+mpause 1000
+sendln "erd, 0x70, 16"
+mpause 1000
+sendln "erd, 0x80, 16"
+mpause 1000
+sendln "erd, 0x90, 16"
+mpause 1000
+sendln "erd, 0xA0, 16"
+mpause 1000
