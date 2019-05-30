@@ -81,7 +81,7 @@ begin
                   ]
 
     
-    Dir.glob("*") { |f|
+    Dir.glob("*.log") { |f|
         @cnt = 0
         File.foreach(f){|line|
           str = line.split(" ")
