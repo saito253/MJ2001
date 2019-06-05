@@ -107,16 +107,18 @@ begin
         if LOTS_NUM == 3 then
             tt_freq     = @t_freq.to_time.to_i - @t_obw.to_time.to_i
             tt_power    = @t_power.to_time.to_i - @t_freq.to_time.to_i
+        else
+            tt_power    = @t_power.to_time.to_i - @t_obw.to_time.to_i
         end
-        tt_power    = @t_power.to_time.to_i - @t_obw.to_time.to_i
         tt_spurious = @t_spurious.to_time.to_i - @t_power.to_time.to_i
         tt_adjacent = @t_adjacent.to_time.to_i - @t_spurious.to_time.to_i
         tt_cca      = @t_cca.to_time.to_i - @t_adjacent.to_time.to_i
         if LOTS_NUM == 3 then
             tt_mask     = @t_mask.to_time.to_i - @t_cca.to_time.to_i
             tt_anntena  = @t_anntena.to_time.to_i - @t_mask.to_time.to_i
+        else
+            tt_anntena  = @t_anntena.to_time.to_i - @t_cca.to_time.to_i
         end
-        tt_anntena  = @t_anntena.to_time.to_i - @t_cca.to_time.to_i
         tt_finish   = @t_finish.to_time.to_i - @t_start.to_time.to_i
 
         if LOTS_NUM == 3 then

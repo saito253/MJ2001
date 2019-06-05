@@ -95,8 +95,8 @@ begin
             @freq = str[8].to_i
           elsif line.match("Result") then
             @ant_power = str[7].delete!("dBm")
-          elsif line.match("1   1") then
-            @spu1 = str[9].to_f
+#         elsif line.match("1   1") then
+#           @spu1 = str[9].to_f
           elsif line.match("2   2") then
             @spu2 = str[9].to_f
           elsif line.match("3   3") then
