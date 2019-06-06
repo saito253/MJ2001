@@ -7,7 +7,7 @@ require 'timeout'
 print("input COM number => ")
 com = gets().to_i
 #com = "42"
-#com = "COM" + com.to_s
+com = "COM" + com.to_s
 
 $SERIAL_PORT =com
 $SERIAL_BAUDRATE=115200
