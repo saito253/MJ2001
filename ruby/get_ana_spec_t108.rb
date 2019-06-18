@@ -25,6 +25,7 @@ begin
                   "01 Tolerance of occupied bandwidth:",
                   "",
                   "",
+                  "",
                   "02 Tolerance of frequency:",
                   "03 Antenna power pointn:",
                   "06 Tolerance of spurious:",
@@ -41,10 +42,11 @@ begin
                   ]
 
     csvfile.puts ["",
-                  "",                       #Calibration Summary:
+                  "Power level",             #Calibration Summary:
                   "OBW Center",             #01 Tolerance of occupied bandwidth:
-                  "",   #"OBW Lower",
-                  "",   #"OBW Upper",
+                  "OBW Lower",
+                  "OBW Upper",
+                  "",                       #01 OBW
                   "Frequency counter",      #02 Tolerance of frequency:
                   "Result",                 #03 Antenna power pointn:
                   "1   1",                  #06 Tolerance of spurious:
@@ -61,10 +63,11 @@ begin
                   ]
 
     csvfile.puts ["",
-                  "",                       #Calibration Summary:
+                  "20mW",                   #Calibration Summary:
                   924300000,                #01 Center Frequency
                   (20 * (10**-6)),          #01 DEV
                   (924300000 * 20 * (10**-6)).to_i,          #01 DEV
+                  "",                       #01 OBW
                   "",                       #02 Tolerance of frequency:
                   "13",                     #03 Antenna power pointn:
                   "-36",                    #06 Tolerance of spurious:
@@ -85,7 +88,8 @@ begin
         @cnt = 0
         File.foreach(f){|line|
           str = line.split(" ")
-          if line.match("OBW Center") then
+          if line.match("Power level") then
+          elsif line.match("OBW Center") then
             @obw_c = str[8].to_i
           elsif line.match("OBW Lower") then
             @obw_l = str[8].to_i
@@ -95,8 +99,8 @@ begin
             @freq = str[8].to_i
           elsif line.match("Result") then
             @ant_power = str[7].delete!("dBm")
-#         elsif line.match("1   1") then
-#           @spu1 = str[9].to_f
+          elsif line.match("1   1") then
+            @spu1 = str[9].to_f
           elsif line.match("2   2") then
             @spu2 = str[9].to_f
           elsif line.match("3   3") then
@@ -117,14 +121,17 @@ begin
             end
           end
         }
-        csvfile.puts [f,
-                      "",
-                      @obw_c,
-                      "","", #@obw_l,@obw_u,
-                      @freq,@ant_power,@spu1,@spu2,@spu3,
-                      @adj_u,@adj_l,"",
-#                     @mask1_l,@mask1_u,@mask2_l,@mask2_u
-                     ]
+        if (@ant_power.to_i > 0) then
+            csvfile.puts [f,
+                          "",
+                          @obw_c,
+                          @obw_l,@obw_u,
+                          @obw_u-@obw_l,
+                          @freq,@ant_power,@spu1,@spu2,@spu3,
+                          @adj_u,@adj_l,"",
+    #                     @mask1_l,@mask1_u,@mask2_l,@mask2_u
+                         ]
+        end
     }
     csvfile.close
 end
